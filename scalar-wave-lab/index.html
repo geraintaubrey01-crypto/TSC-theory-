@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111d">
+  <title>Scalar Wave Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <p class="eyebrow">Standalone GPU simulation</p>
+    <h1>Scalar Wave Lab</h1>
+    <p class="intro">A damped scalar wave on configurable two-dimensional topologies.</p>
+  </header>
+
+  <main>
+    <section class="visualization" aria-label="Wave field visualization">
+      <canvas id="field" aria-label="GPU-rendered scalar wave field. Click or drag to add energy."></canvas>
+      <div class="legend" aria-hidden="true">
+        <span><i class="negative"></i>Negative</span>
+        <span><i class="zero"></i>Zero</span>
+        <span><i class="positive"></i>Positive</span>
+      </div>
+      <p class="hint">Click or drag on the field to add a wave impulse.</p>
+    </section>
+
+    <aside class="panel">
+      <div class="status-row">
+        <h2>Simulation</h2>
+        <span id="status" role="status">Starting…</span>
+      </div>
+
+      <label for="topology">Topology / boundary condition</label>
+      <select id="topology">
+        <option value="plane">Plane — fixed zero edges</option>
+        <option value="torus">Torus — wrap both axes</option>
+        <option value="mobius">Möbius strip — twisted x seam</option>
+        <option value="klein">Klein bottle — twisted x, wrapped y</option>
+      </select>
+
+      <div class="control">
+        <label for="speed">Wave speed <output id="speedValue">0.45</output></label>
+        <input id="speed" type="range" min="0.05" max="0.70" step="0.01" value="0.45">
+      </div>
+      <div class="control">
+        <label for="damping">Damping <output id="dampingValue">0.006</output></label>
+        <input id="damping" type="range" min="0" max="0.08" step="0.001" value="0.006">
+      </div>
+      <div class="control">
+        <label for="impulse">Impulse strength <output id="impulseValue">0.80</output></label>
+        <input id="impulse" type="range" min="0.1" max="2" step="0.05" value="0.8">
+      </div>
+
+      <div class="buttons">
+        <button id="pause" type="button">Pause</button>
+        <button id="reset" type="button">Clear field</button>
+      </div>
+      <p class="help">Wave propagation is calculated in WebGL2 fragment shaders. No server, build step, or external library is required.</p>
+      <p class="help">The field is dimensionless and illustrative; it does not model gravity or establish any physical TSC claims.</p>
+    </aside>
+  </main>
+
+  <footer>
+    <span id="readout">0 simulated steps</span>
+    <a href="MODEL.md">Numerical model and topology notes</a>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
